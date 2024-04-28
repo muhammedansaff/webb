@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Complains extends StatefulWidget {
@@ -25,11 +25,6 @@ class _ComplainsState extends State<Complains> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              deleteuser(email, password);
-            },
-            icon: Icon(Icons.abc)),
         automaticallyImplyLeading: false,
         title: const Text('User complaints'),
       ),
@@ -79,25 +74,44 @@ class _ComplainsState extends State<Complains> {
                             content: Text(
                                 'Are you sure you want to delete $userName?'),
                             actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  getWorkerData(uid);
-                                  setState(() {
-                                    userId = uid;
-                                    print(uid);
-                                  });
-
-                                  Navigator.pop(context);
-                                  showDeleteUserDataDialog();
-                                },
-                                child: Text('Delete User'),
-                              ),
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          getWorkerData(uid);
+                                          setState(() {
+                                            userId = uid;
+                                            print(uid);
+                                            deleteUserData(userId!);
+                                          });
+                                        },
+                                        child: Text('Delete User'),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        deleteUser(email, password);
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text(
+                                        'Delete User full data',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
                           );
                         },
@@ -160,7 +174,6 @@ class _ComplainsState extends State<Complains> {
             TextButton(
               onPressed: () {
                 deleteUser(email, password);
-                deleteUserData(userId!);
 
                 Navigator.pop(context);
               },

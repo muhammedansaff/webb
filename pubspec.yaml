@@ -121,6 +121,7 @@ flutter:
   assets:
     - assets/images/logo.jpg
     - assets/icons/
+    - assets/slide/
     - assets/images/ansaf.png
     - assets/images/wallpaper.jpg
     
