@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "jobportal-2cd48"
-  }
+    "default": "jobportal-2cd48",
+    "staging": "jobportal-2cd48"
+  },
+  "targets": {},
+  "etags": {}
 }
